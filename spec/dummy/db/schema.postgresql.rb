@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_24_120603) do
+ActiveRecord::Schema.define(version: 2022_03_23_084716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -192,10 +192,14 @@ ActiveRecord::Schema.define(version: 2021_06_24_120603) do
     t.string "icon"
     t.float "commission", default: 0.0, null: false
     t.decimal "minimal_income_amount_cents", default: "0.0", null: false
-    t.decimal "maximal_income_amount_cents"
-    t.decimal "minimal_outcome_amount_cents"
-    t.decimal "maximal_outcome_amount_cents"
+    t.decimal "maximal_income_amount_cents", default: "1000.0", null: false
+    t.decimal "minimal_outcome_amount_cents", default: "1.0", null: false
+    t.decimal "maximal_outcome_amount_cents", default: "1000.0", null: false
     t.boolean "require_verify", default: false, null: false
+    t.boolean "require_phone_on_income", default: false, null: false
+    t.boolean "require_phone_on_outcome", default: false, null: false
+    t.boolean "require_telegram_on_income", default: false, null: false
+    t.boolean "require_telegram_on_outcome", default: false, null: false
     t.index ["income_enabled"], name: "index_payment_systems_on_income_enabled"
     t.index ["outcome_enabled"], name: "index_payment_systems_on_outcome_enabled"
   end
