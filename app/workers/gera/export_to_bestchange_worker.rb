@@ -116,7 +116,7 @@ module Gera
     rescue Gera::DirectionRatesRepository::FinitRateNotFound => err
       logger.warn err
       Bugsnag.notify err do |b|
-        b.meta_data = { exchange_rate_id: err.id, exchange_rate_title: err.to_s }
+        b.meta_data = { exchange_rate_id: exchange_rate.id, exchange_rate_title: exchange_rate.to_s }
       end
 
       false
