@@ -45,5 +45,10 @@ module Gera
     def direction_rate
       Universe.direction_rates_repository.find_by_direction self
     end
+
+    def mandatory_direction_rate
+      direction_rate ||
+        DirectionRate.new(income_payment_system: income_payment_system, outcome_payment_system: outcome_payment_system).freeze
+    end
   end
 end
