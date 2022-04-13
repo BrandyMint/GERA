@@ -35,6 +35,8 @@ module Gera
     monetize :minimal_outcome_amount_cents, as: :minimal_outcome_amount, allow_nil: true, with_model_currency: :currency_iso_code
     monetize :maximal_outcome_amount_cents, as: :maximal_outcome_amount, allow_nil: true, with_model_currency: :currency_iso_code
 
+    validate :minimals_less_than_maximals
+
     before_update if: :currency_iso_code_changed? do
       raise "Changing currency is disabled"
     end
@@ -72,6 +74,11 @@ module Gera
     end
 
     private
+
+    def minimals_less_than_maximals
+      errors.add :minimal_income_amount, 'Минимальная сумма на вход должна быть меньше максимальной' if minimal_income_amount>=maximal_income_amount
+      errors.add :minimal_income_amount, 'Минимальная сумма на выход должна быть меньше максимальной' if minimal_outcome_amount>=maximal_outcome_amount
+    end
 
     def calculate_total(money:, fee:)
       if fee.computation_method == 'regular_fee'
