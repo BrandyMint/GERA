@@ -18,6 +18,8 @@ module Gera
     validates :name, presence: true, uniqueness: true
     validates :currency, presence: true
 
+    validates :commission, numericality: { greater_than_or_equal_to: 0 } , presence: true
+
     before_create do
       self.priority = self.class.maximum(:priority).to_i + 1
     end
