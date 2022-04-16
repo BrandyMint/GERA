@@ -32,6 +32,7 @@ module Gera
     # "timestamp":"1532874580.9087598"}
     def save_rate(ticker, data)
       currency_pair = pair_from_ticker ticker
+      logger.info "save_rate #{ticker} #{data}"
       create_external_rates currency_pair, data, sell_price: data['high'], buy_price: data['low']
     end
 
@@ -41,6 +42,7 @@ module Gera
     end
 
     def load_rates
+      logger.info "load_rates #{tickers_to_load.join(',')}"
       tickers_to_load.each_with_object({}) { |ticker, ag| ag[ticker] = BitfinexFetcher.new(ticker: ticker).perform }
     end
 
