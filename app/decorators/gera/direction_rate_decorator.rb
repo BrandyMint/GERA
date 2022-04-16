@@ -6,6 +6,7 @@ module Gera
     delegate :id
 
     def inverse_direction
+      return t('.no_inverse_direction') unless object.inverse_direction_rate.present?
       h.link_to h.direction_rate_path(object.inverse_direction_rate), class: 'text-muted' do
         dd = DirectionRateDecorator.new(object.inverse_direction_rate)
         buffer = dd.direction

@@ -87,7 +87,7 @@ module Gera
     end
 
     def inverse_direction_rate
-      Universe.direction_rates_repository.get_matrix[ps_to_id][ps_from_id]
+      Universe.direction_rates_repository.get_matrix.fetch( ps_to_id ).fetch(ps_from_id)
     end
 
     def get_profit_result(income_amount)
