@@ -12,6 +12,7 @@ module Gera
 
     def perform
       if PURGE_METHOD == :delete_all
+        external_rates.delete_all
         external_rate_snapshots.delete_all
       else
         external_rate_snapshots.batch_purge
@@ -22,6 +23,10 @@ module Gera
 
     def lock_timeout
       7.days * 1000
+    end
+
+    def external_rates
+      ExternalRateSnapshot.where.not(snapshot_id: ExternalRateSnapshot.last).where('created_at < ?', KEEP_PERIOD.ago)
     end
 
     def external_rate_snapshots

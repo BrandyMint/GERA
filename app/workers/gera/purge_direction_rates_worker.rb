@@ -12,6 +12,7 @@ module Gera
 
     def perform
       if PURGE_METHOD == :delete_all
+        direction_rates.delete_all
         direction_rate_snapshots.delete_all
       else
         direction_rate_snapshots.batch_purge
