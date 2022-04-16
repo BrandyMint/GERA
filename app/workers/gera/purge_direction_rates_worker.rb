@@ -6,11 +6,17 @@ module Gera
 
     sidekiq_options queue: :purgers, retry: false
 
-    KEEP_PERIOD = 3.hours
+    KEEP_PERIOD = 1.week
+
+    PURGE_METHOD = :delete_all
 
     def perform
-      direction_rate_snapshots.batch_purge
-      direction_rates.batch_purge
+      if PURGE_METHOD == :delete_all
+        direction_rate_snapshots.delete_all
+      else
+        direction_rate_snapshots.batch_purge
+        direction_rates.batch_purge
+      end
     end
 
     private
