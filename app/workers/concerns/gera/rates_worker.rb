@@ -79,7 +79,7 @@ module Gera
           end
         end
       else
-        logger.error "save_rate_for_date: #{actual_for} , #{pair} -> #{err}"
+        logger.error "save_rate_for_date: #{actual_for} , #{currency_pair} -> #{err}"
         raise error
       end
     end
