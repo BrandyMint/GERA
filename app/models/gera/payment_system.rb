@@ -37,6 +37,12 @@ module Gera
     monetize :minimal_outcome_amount_cents, as: :minimal_outcome_amount, allow_nil: true, with_model_currency: :currency_iso_code
     monetize :maximal_outcome_amount_cents, as: :maximal_outcome_amount, allow_nil: true, with_model_currency: :currency_iso_code
 
+    validates :maximal_income_amount,  numericality: { greater_than: 0 }
+    validates :minimal_income_amount,  numericality: { greater_than_or_equal_to: 0 }
+
+    validates :maximal_outcome_amount,  numericality: { greater_than: 0 }
+    validates :minimal_outcome_amount,  numericality: { greater_than_or_equal_to: 0 }
+
     validate :minimals_less_than_maximals
 
     before_update if: :currency_iso_code_changed? do
@@ -78,8 +84,8 @@ module Gera
     private
 
     def minimals_less_than_maximals
-      errors.add :minimal_income_amount, 'Минимальная сумма на вход должна быть меньше максимальной' if minimal_income_amount>=maximal_income_amount
-      errors.add :minimal_income_amount, 'Минимальная сумма на выход должна быть меньше максимальной' if minimal_outcome_amount>=maximal_outcome_amount
+      errors.add :minimal_income_amount, 'Минимальная сумма на вход должна быть меньше максимальной' if minimal_income_amount.to_d>=maximal_income_amount.to_d
+      errors.add :minimal_income_amount, 'Минимальная сумма на выход должна быть меньше максимальной' if minimal_outcome_amount.to_d>=maximal_outcome_amount.to_d
     end
 
     def calculate_total(money:, fee:)
