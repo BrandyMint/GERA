@@ -5,7 +5,7 @@ module Gera
   class ExternalRateSnapshotsController < ApplicationController
     authorize_actions_for ExchangeRate
 
-    PER_PAGE = 200
+    PER_PAGE = 50
     helper_method :rate_source
 
     def index
@@ -29,7 +29,7 @@ module Gera
     end
 
     def snapshots
-      rate_source.snapshots.ordered.page(params[:page]).per(params[:per] || PER_PAGE)
+      rate_source.snapshots.order('actual_for desc').page(params[:page]).per(params[:per] || PER_PAGE)
     end
   end
 end
