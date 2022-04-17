@@ -19,7 +19,8 @@ Gera::Engine.routes.draw do
     end
   end
   resources :external_rate_snapshots, only: [:index, :show]
-  resources :currency_rates
+  resources :currency_rates, only: [:index, :show]
+  resources :currency_rate_snapshots, only: [:index, :show]
   resources :currency_rate_modes, only: [:edit, :update, :new, :create]
   resources :currency_rate_mode_snapshots, only: [:index, :edit, :update, :show, :create] do
     member do
