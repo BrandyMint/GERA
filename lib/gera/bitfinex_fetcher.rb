@@ -1,36 +1,23 @@
-require 'uri'
-require 'net/http'
 require 'rest-client'
-require 'virtus'
 
 module Gera
   class BitfinexFetcher
-    API_URL = 'https://api.bitfinex.com/v1/pubticker/'
+    API_TICKER_URL = 'https://api.bitfinex.com/v1/pubticker/'
+    API_TICKERS_URL = 'https://api.bitfinex.com/v1/symbols'
 
-    include Virtus.model strict: true
+    def fetch_tickers
+      parse_response RestClient::Request.execute url: API_TICKERS_URL, method: :get, verify_ssl: false
+    end
 
-    # Например btcusd
-    attribute :ticker, String
-
-    def perform
-      response = RestClient::Request.execute url: url, method: :get, verify_ssl: false
-
-      raise response.code unless response.code == 200
-      JSON.parse response.body
+    def fetch_ticker(ticker)
+      parse_response RestClient::Request.execute url: API_TICKER_URL + ticker, method: :get, verify_ssl: false
     end
 
     private
 
-    def url
-      API_URL + ticker
-    end
-
-    def http
-      Net::HTTP.new(uri.host, uri.port).tap do |http|
-        http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        http
-      end
+    def parse_response(response)
+      raise response.code unless response.code == 200
+      JSON.parse response.body
     end
   end
 end

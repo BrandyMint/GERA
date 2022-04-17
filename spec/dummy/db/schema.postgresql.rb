@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_23_084716) do
+ActiveRecord::Schema.define(version: 2022_04_17_063406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -213,6 +213,8 @@ ActiveRecord::Schema.define(version: 2022_03_23_084716) do
     t.uuid "actual_snapshot_id"
     t.integer "priority", default: 0, null: false
     t.boolean "is_enabled", default: true, null: false
+    t.jsonb "supported_tickers", default: [], null: false
+    t.datetime "supported_tickers_updated_at"
     t.index ["actual_snapshot_id"], name: "fk_rails_0b6cf3ddaa"
     t.index ["key"], name: "index_rate_sources_on_key", unique: true
     t.index ["title"], name: "index_rate_sources_on_title", unique: true

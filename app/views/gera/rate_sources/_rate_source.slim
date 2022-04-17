@@ -1,6 +1,11 @@
 h4
   = source
 
+h3 Поддерживаемые источников тикеры:
+.text-small
+  code= source.supported_ticker.join(', ')
+  p Послединй раз обновлялись: #{l source.supported_tickers_updated_at, format: :short }
+
 - snapshot = source.actual_snapshot
 
 .mb-3
