@@ -3,7 +3,10 @@ module Gera
     UnknownPair = Class.new StandardError
 
     def snapshot
-      @snapshot ||= CurrencyRateSnapshot.last || raise("No actual snapshot")
+      @snapshot ||= CurrencyRateSnapshot.
+        where('created_at>=?', Settings.actual_rates.fetch(:currency_rates_seconds).seconds.ago).
+        order('created_at desc').first ||
+        raise("No actual snapshot")
     end
 
     def find_currency_rate_by_pair pair

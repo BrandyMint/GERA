@@ -1,4 +1,4 @@
-h1 Снимок внешних курсов (#{snapshot.rate_source}) от #{l snapshot.created_at, format: :long}
+h1 Снимок базовых курсов #{l snapshot.created_at, format: :long}
 
 table.table.table-condensed.table-striped.table-narrow
   thead
@@ -9,7 +9,7 @@ table.table.table-condensed.table-striped.table-narrow
       th Человеческое значение
       th Расшифровочка
   tbody
-    - snapshot.external_rates.ordered.each do |er|
+    - snapshot.rates.ordered.each do |er|
       tr
         th= er.cur_from
         th= er.cur_to

@@ -12,6 +12,7 @@ module Gera
     def index
       if snapshot.present?
         render locals: {
+          snapshot: snapshot,
           rates: snapshot.rates,
           created_at: snapshot.created_at
         }
