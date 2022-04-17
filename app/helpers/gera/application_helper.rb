@@ -126,6 +126,9 @@ module Gera
       link_to gera.currency_rate_path(rate), target: '_blank' do
         humanized_money_with_currency rate.send(method)
       end
+    rescue CurrencyRatesRepository::UnknownPair => err
+      Rails.logger.error err
+      t('.no_currency_rate')
     end
   end
 end
