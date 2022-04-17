@@ -9,7 +9,7 @@ table.table.table-condensed.table-striped.table-narrow
       th Человеческое значение
       th Расшифровочка
   tbody
-    - snapshot.rates.ordered.each do |er|
+    - snapshot.rates.order(:created_at).each do |er|
       tr
         th= er.cur_from
         th= er.cur_to
