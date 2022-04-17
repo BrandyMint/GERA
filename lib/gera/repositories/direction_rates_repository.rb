@@ -6,8 +6,9 @@ module Gera
     def snapshot
       @snapshot ||= DirectionRateSnapshot.
         where('created_at>=?', Settings.actual_rates.fetch(:direction_rates_seconds).seconds.ago).
-        order('created_at desc').first ||
-        last || raise(NoActualSnapshot, "No actual DirectionRate snapshot")
+        order('created_at desc').
+        first ||
+        raise(NoActualSnapshot, "No actual DirectionRate snapshot")
     end
 
     def all
