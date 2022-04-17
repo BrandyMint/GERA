@@ -22,11 +22,11 @@ module Gera
     private
 
     def currency_rates
-      CurrencyRate.where.not(snapshot_id: CurrencyRateSnapshot.last).where('created_at < ?', KEEP_PERIOD.ago)
+      CurrencyRate.where.not(snapshot_id: CurrencyRateSnapshot.current).where('created_at < ?', KEEP_PERIOD.ago)
     end
 
     def currency_rate_snapshots
-      CurrencyRateSnapshot.where.not(id: CurrencyRateSnapshot.last).where('created_at < ?', KEEP_PERIOD.ago)
+      CurrencyRateSnapshot.where.not(id: CurrencyRateSnapshot.current).where('created_at < ?', KEEP_PERIOD.ago)
     end
   end
 end

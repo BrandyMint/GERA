@@ -29,12 +29,18 @@ module Gera
 
     delegate :supported_currencies, :available_pairs, to: :class
 
+    def self.currencies
+      @currencies ||= Currency.all # TODO Вытаскивать через cross-таблицу
+    end
+
     def self.supported_currencies
-      raise 'not implemented'
+      # Money::Currency.all
+      @supported_currencies ||= currencies.alive.map &:money_currency
     end
 
     def self.available_pairs
-      generate_pairs_from_currencies supported_currencies
+      # CurrencyPair.all
+      @available_pairs ||= generate_pairs_from_currencies supported_currencies
     end
 
     def self.get!

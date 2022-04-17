@@ -6,11 +6,6 @@ module Gera
 
     has_many :external_rates, foreign_key: :snapshot_id
 
-    scope :ordered, -> { order 'actual_for desc' }
-
-    # TODO Don't use id
-    # scope :last_actuals_by_rate_sources, -> { where id: group(:rate_source_id).maximum(:id).values }
-
     before_save do
       self.actual_for ||= Time.zone.now
     end
