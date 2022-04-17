@@ -13,8 +13,6 @@ module Gera
       # Alternative approach is `Model.uncached do`
       ActiveRecord::Base.connection.clear_query_cache
 
-      prepare
-
       rates # Load before a translaction
 
       rate_source.with_lock do
@@ -46,10 +44,6 @@ module Gera
     attr_reader :snapshot
 
     delegate :actual_for, to: :snapshot
-
-    def prepare
-      # inherit it
-    end
 
     def create_snapshot
       @snapshot ||= rate_source.snapshots.create! actual_for: Time.zone.now
