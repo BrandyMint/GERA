@@ -14,6 +14,10 @@ module Gera
     helper_method :currencies
     helper_method :query_params
 
+    before_action do
+      @container = :fluid
+    end
+
     private
 
     def query_params
