@@ -18,6 +18,25 @@ module Gera
     delegate :id, to: :ps_from, prefix: true, allow_nil: true
     delegate :minimal_income_amount, to: :direction_rate, allow_nil: true
 
+    def disable_reasons
+      return @disable_reasons if @disable_reasons.is_a? Set
+      @disable_reasons = Set.new
+      @disable_reasons << :no_alive_income_wallet if ps_from.wallets.alive.income.empty?
+      @disable_reasons << :direction_rate_is_nil if direction_rate.nil?
+      @disable_reasons << :direction_rate_is_not_persisted unless !direction_rate.persisted?
+      @disable_reasons << :no_reserves if ReservesByPaymentSystems.new.final_reserves.fetch(ps_to.id).zero?
+      @disable_reasons
+    end
+
+    def freeze
+      disable_reasons
+      super
+    end
+
+    def exchange_enabled?
+      disable_reasons.empty?
+    end
+
     def valid?
       income_payment_system.present? || outcome_payment_system.present?
     end
