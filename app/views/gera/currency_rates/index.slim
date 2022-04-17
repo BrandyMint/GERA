@@ -1,25 +1,11 @@
 .container-fluid
   h2 Базовые курсы
   .mb-2
-    span.text-muted.mr-4= "Курсы актуалены на #{l created_at, format: :long}"
     span.mr-4= link_to 'График изменений', currency_rate_history_intervals_path
     span.mr-4= link_to 'Журнал', currency_rate_snapshots_path
     = link_to 'Источники курсов', rate_sources_path
-.text-small
-  = render layout: 'currencies_table' do |pair|
-    - rate = rates.find_by_currency_pair pair
-    - rate_d = Gera::CurrencyRateDecorator.decorate rate
-    - if rate.present?
-      td.text-nowrap.text-right.v-middle.rate-popover class=currency_rate_class(rate) data=currency_rate_cell_data_attr(rate) title=rate_d.title
-        - if pair.same?
-          .text-muted &middot;
-        - else
-          = link_to currency_rate_path(rate) do 
-            = humanized_rate rate.rate_value, rate.currency_to
-    - else
-      td.text-nowrap.text-right.v-middle data-toggle=:tooltip data-container=:body data-html='true' title='курс отсутсвует'
-        .text-muted &middot;
 
+= render 'currency_rates_snapshot', snapshot: snapshot
 .panel.panel-default.m-t-md
   .panel-body
     p

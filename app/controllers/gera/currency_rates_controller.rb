@@ -13,8 +13,6 @@ module Gera
       if snapshot.present?
         render locals: {
           snapshot: snapshot,
-          rates: snapshot.rates,
-          created_at: snapshot.created_at
         }
       else
         render :page, locals: { message: 'No current currency rate snapshot found' }
