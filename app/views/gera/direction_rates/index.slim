@@ -5,7 +5,8 @@
       .mb-4
         span.text-muted.mr-4 title="snapshot_id: #{snapshot.id}"= "Дата расчета матрицы #{l snapshot.created_at, format: :long}"
         span.mr-4= link_to 'График изменений', direction_rate_history_intervals_path
-        = link_to 'Методы расчета', currency_rate_mode_snapshots_path
+        span.mr-4= link_to 'Методы расчета', currency_rate_mode_snapshots_path
+        span.mr-4= link_to 'Журнал курсов', currency_rate_snapshots_path
 
 = render layout: 'directions_table' do |direction|
   - dr = Gera::Universe.direction_rates_repository.find_by_direction direction
