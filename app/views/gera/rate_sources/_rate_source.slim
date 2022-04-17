@@ -8,7 +8,7 @@ h3 Поддерживаемые источников тикеры:
     | Послединй раз обновлялись: 
     - if source.supported_tickers_updated_at.nil?
       em Никогда
-   - else 
+    - else 
       em= l source.supported_tickers_updated_at, format: :short
 
 - snapshot = source.actual_snapshot
