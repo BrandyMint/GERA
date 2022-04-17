@@ -4,7 +4,7 @@ module Gera
   class RateSourceBitfinex < RateSource
 
     def tickers_to_load
-      currencies_tickers
+      @tickers_to_load ||= currencies_tickers
     end
 
     def currencies_tickers

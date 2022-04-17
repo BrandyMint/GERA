@@ -42,7 +42,7 @@ module Gera
     end
 
     def load_rates
-      logger.info "load_rates #{tickers_to_load.join(',')}"
+      logger.info "load_rates #{rate_source.tickers_to_load.join(',')}"
       rate_source.tickers_to_load.each_with_object({}) { |ticker, ag| ag[ticker] = BitfinexFetcher.fetch_ticker(ticker) }
     end
   end
