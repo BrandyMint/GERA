@@ -47,7 +47,7 @@ module Gera
     end
 
     def tickers_to_load
-      (FORCED_TICKERS + currencies_tickers).uniq
+      (FORCED_TICKERS + currencies_tickers).uniq.sort
     end
 
     def currencies_tickers
