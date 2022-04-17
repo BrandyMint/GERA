@@ -15,7 +15,7 @@ module Gera
 
     def prepare
       return unless rate_source.supported_tickers_updated_at.nil? || rate_source.supported_tickers_updated_at < SUPPORTED_TICKERS_UPDATE_PERIOD.ago
-      rate_source.update! supported_tickers: BitfinexFetcher.fetch_tickers, supported_tickers_updated_at: Time.zone.now
+      rate_source.update! supported_tickers: BitfinexFetcher.new.fetch_tickers, supported_tickers_updated_at: Time.zone.now
     end
 
     def rate_source
@@ -43,7 +43,7 @@ module Gera
 
     def load_rates
       logger.info "load_rates #{rate_source.tickers_to_load.join(',')}"
-      rate_source.tickers_to_load.each_with_object({}) { |ticker, ag| ag[ticker] = BitfinexFetcher.fetch_ticker(ticker) }
+      rate_source.tickers_to_load.each_with_object({}) { |ticker, ag| ag[ticker] = BitfinexFetcher.new.fetch_ticker(ticker) }
     end
   end
 end
