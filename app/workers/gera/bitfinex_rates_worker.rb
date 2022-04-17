@@ -14,7 +14,7 @@ module Gera
 
 
     # NOTE: formar tickers neousd neobtc neoeth neoeur
-    FORCED_TICKERS = %i[btcusd].freeze
+    FORCED_TICKERS = %w[btcusd].freeze
 
     private
 
