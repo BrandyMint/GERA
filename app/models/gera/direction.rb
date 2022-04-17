@@ -23,7 +23,7 @@ module Gera
       @disable_reasons = Set.new
       @disable_reasons << :no_alive_income_wallet if ps_from.wallets.alive.income.empty?
       @disable_reasons << :direction_rate_is_nil if direction_rate.nil?
-      @disable_reasons << :direction_rate_is_not_persisted unless !direction_rate.persisted?
+      @disable_reasons << :direction_rate_is_not_persisted if direction_rate.present? && !direction_rate.persisted?
       @disable_reasons << :no_reserves if ReservesByPaymentSystems.new.final_reserves.fetch(ps_to.id).zero?
       @disable_reasons
     end
