@@ -21,12 +21,16 @@ module Gera
 
     private
 
+    def current_snapshot
+      @current_snapshot ||= Gera::CurrencyRateSnapshot.order('created_at desc').first
+    end
+
     def currency_rates
-      CurrencyRate.where.not(snapshot_id: CurrencyRateSnapshot.current).where('created_at < ?', KEEP_PERIOD.ago)
+      CurrencyRate.where.not(snapshot_id: current_snapshot.id).where('created_at < ?', KEEP_PERIOD.ago)
     end
 
     def currency_rate_snapshots
-      CurrencyRateSnapshot.where.not(id: CurrencyRateSnapshot.current).where('created_at < ?', KEEP_PERIOD.ago)
+      CurrencyRateSnapshot.where.not(id: current_snapshot.id).where('created_at < ?', KEEP_PERIOD.ago)
     end
   end
 end
