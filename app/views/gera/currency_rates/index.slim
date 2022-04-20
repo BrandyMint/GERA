@@ -5,7 +5,11 @@
     span.mr-4= link_to 'Журнал', currency_rate_snapshots_path
     = link_to 'Источники курсов', rate_sources_path
 
-= render 'currency_rates_snapshot', snapshot: snapshot
+- if snapshot.present?
+  = render 'currency_rates_snapshot', snapshot: snapshot
+- else
+  .alert.alert-warning Нет актуального снимка курсов
+
 .panel.panel-default.m-t-md
   .panel-body
     p

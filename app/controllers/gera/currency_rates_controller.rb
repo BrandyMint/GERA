@@ -10,13 +10,7 @@ module Gera
     helper_method :source
 
     def index
-      if snapshot.present?
-        render locals: {
-          snapshot: snapshot,
-        }
-      else
-        render :page, locals: { message: 'No current currency rate snapshot found' }
-      end
+      render locals: { snapshot: snapshot }
     end
 
     def show
@@ -64,6 +58,8 @@ module Gera
 
     def snapshot
       Universe.currency_rates_repository.snapshot
+    rescue Gera::CurrencyRatesRepository::NoActualSnapshot
+      nil
     end
   end
 end

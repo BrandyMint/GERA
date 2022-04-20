@@ -1,29 +1,32 @@
-- snapshot = Gera::Universe.direction_rates_repository.snapshot
 .container-fluid
+  - if snapshot.present?
+    h2 title="snapshot_id: #{snapshot.id}"= "Дата расчета матрицы #{l snapshot.created_at, format: :long}"
+  - else
+    .alert.alert-warning Нет текущего снимка с курсами
   .row
     .col-md-12
       .mb-4
-        span.text-muted.mr-4 title="snapshot_id: #{snapshot.id}"= "Дата расчета матрицы #{l snapshot.created_at, format: :long}"
         span.mr-4= link_to 'График изменений', direction_rate_history_intervals_path
         span.mr-4= link_to 'Методы расчета', currency_rate_mode_snapshots_path
         span.mr-4= link_to 'Журнал курсов', currency_rate_snapshots_path
 
-= render layout: 'directions_table' do |direction|
-  - dr = Gera::Universe.direction_rates_repository.find_by_direction direction
-  - er = Gera::Universe.exchange_rates_repository.find_by_direction direction
-  td.text-nowrap.cell-small.text-center.rate-popover.v-middle data=direction_rate_cell_data_attr(direction)
-    - if dr.nil?
-      - if er.nil?
-        .text-muted title='no direction and exchange rates'
-          = ion_icon 'ios-close-empty'
-      - else
-        = link_to exchange_rate_path(er) do
-          .text-muted title='direction rate is unknown'
+- if snapshot.present?
+  = render layout: 'directions_table' do |direction|
+    - dr = Gera::Universe.direction_rates_repository.find_by_direction direction
+    - er = Gera::Universe.exchange_rates_repository.find_by_direction direction
+    td.text-nowrap.cell-small.text-center.rate-popover.v-middle data=direction_rate_cell_data_attr(direction)
+      - if dr.nil?
+        - if er.nil?
+          .text-muted title='no direction and exchange rates'
             = ion_icon 'ios-close-empty'
-    - elsif !er.available?
-      = link_to exchange_rate_path(er) do
-        .text-muted title='exchange rate is unavailable'
-          = ion_icon 'ios-close-empty'
-    - else
-      = link_to direction_rate_path(dr.id) do
-        = humanized_rate dr.rate_value
+        - else
+          = link_to exchange_rate_path(er) do
+            .text-muted title='direction rate is unknown'
+              = ion_icon 'ios-close-empty'
+      - elsif !er.available?
+        = link_to exchange_rate_path(er) do
+          .text-muted title='exchange rate is unavailable'
+            = ion_icon 'ios-close-empty'
+      - else
+        = link_to direction_rate_path(dr.id) do
+          = humanized_rate dr.rate_value

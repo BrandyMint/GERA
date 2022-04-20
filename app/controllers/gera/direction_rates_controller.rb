@@ -19,7 +19,17 @@ module Gera
       }
     end
 
+    def index
+      render locals: { snapshot: snapshot }
+    end
+
     private
+
+    def snapshot
+      Gera::Universe.direction_rates_repository.snapshot
+    rescue Gera::DirectionRatesRepository::NoActualSnapshot
+      nil
+    end
 
     def direction_rate
       @direction_rate ||= DirectionRate.find params[:id]

@@ -8,9 +8,9 @@ module Gera::CurrencyRateModesHelper
   }.freeze
 
   STATUS_CLASS = {
-    'draft' => 'label-info',
-    'active' => 'label-success',
-    'deactive' => 'label-default'
+    'draft' => 'badge-info',
+    'active' => 'badge-success',
+    'deactive' => 'badge-default'
   }.freeze
 
   def currency_rate_mode_detailed(currency_rate, level = 0)
@@ -56,7 +56,7 @@ module Gera::CurrencyRateModesHelper
   end
 
   def crms_status_label(status)
-    content_tag :span, status, class: "label #{STATUS_CLASS[status]}"
+    content_tag :span, status, class: "badge #{STATUS_CLASS[status]}"
   end
 
   def currency_rate_mode_snapshot_icon(crms)
