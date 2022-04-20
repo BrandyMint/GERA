@@ -2,6 +2,8 @@
 
 module Gera
   module CurrencyRateModeBuilderSupport
+    NotSupportedMode = Class.new StandardError
+
     def build_currency_rate
       @currency_rate ||= build_currency_rate!
     rescue CurrencyRateBuilder::Error
@@ -26,7 +28,7 @@ module Gera
         CurrencyRateCrossBuilder.new currency_pair: currency_pair, cross_rate_modes: cross_rate_modes
       else
         source = RateSource.find_by_key(mode)
-        raise "not supported mode #{mode} for #{currency_pair}" unless source.present?
+        raise NotSupportedMode, "not supported mode #{mode} for #{currency_pair}" unless source.present?
 
         CurrencyRateDirectBuilder.new currency_pair: currency_pair, source: source
       end
