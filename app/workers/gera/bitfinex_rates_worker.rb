@@ -40,13 +40,18 @@ module Gera
 
     def pair_from_ticker(ticker)
       ticker = ticker.to_s
-      CurrencyPair.new ticker[0, 3], ticker[3, 3]
+      CurrencyPair.new(
+        rate_source.from_ticker(ticker[0, 3]),
+        rate_source.from_ticker(ticker[3, 3])
+      )
     end
 
     def load_rates
       update_supported_tickers
       logger.info "load_rates: [#{rate_source.tickers_to_load.join(',')}]"
-      rate_source.tickers_to_load.each_with_object({}) { |ticker, ag| ag[ticker] = BitfinexFetcher.new.fetch_ticker(ticker) }
+      rate_source.
+        tickers_to_load.
+        each_with_object({}) { |ticker, ag| ag[ticker] = BitfinexFetcher.new.fetch_ticker(ticker) }
     end
   end
 end
