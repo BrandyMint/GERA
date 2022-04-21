@@ -21,9 +21,9 @@ module Gera
       buffer = []
       Currency.alive.find_each do |c1|
         Currency.alive.find_each do |c2|
-          ticker = bitfinex_ticker(c1) + bitfinex_ticker(c2)
+          ticker = to_ticker(c1) + to_ticker(c2)
           buffer << ticker if supported_tickers.include? ticker
-          ticker = bitfinex_ticker(c2) + bitfinex_ticker(c1)
+          ticker = to_ticker(c2) + to_ticker(c1)
           buffer << ticker if supported_tickers.include? ticker
         end
       end
