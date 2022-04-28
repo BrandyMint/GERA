@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
     s.add_dependency 'rest-client', '~> 2.0'
     s.add_dependency 'sidekiq'
     s.add_dependency 'auto_logger', '> 0.1.4'
-    s.add_dependency 'request_store'
     s.add_dependency 'business_time'
     s.add_dependency 'dapi-archivable'
     s.add_dependency 'authority'
@@ -37,6 +36,8 @@ Gem::Specification.new do |s|
     s.add_dependency 'active_link_to'
     s.add_dependency 'breadcrumbs_on_rails'
     s.add_dependency 'noty_flash'
+    s.add_dependency 'request_store'
+    s.add_dependency 'request_store-sidekiq'
 
     # s.add_development_dependency 'rails-erd'
     # s.add_development_dependency 'railroady'
