@@ -8,7 +8,7 @@ module Gera::CurrencyRateModesHelper
   }.freeze
 
   STATUS_CLASS = {
-    'draft' => 'badge-info',
+    'draft' => 'badge-secondary',
     'active' => 'badge-success',
     'deactive' => 'badge-default'
   }.freeze

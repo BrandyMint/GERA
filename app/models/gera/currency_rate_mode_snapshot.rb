@@ -4,7 +4,7 @@ module Gera
   class CurrencyRateModeSnapshot < ApplicationRecord
     has_many :currency_rate_modes, dependent: :destroy
 
-    scope :ordered, -> { order('status desc').order('created_at desc') }
+    scope :ordered, -> { order('status desc').order('created_at asc') }
 
     enum status: %i[draft active deactive], _prefix: true
 

@@ -28,7 +28,7 @@ module Gera
                elsif [:cbr_max].include? mode.to_sym
                  "#{h.humanized_rate_detailed er.rate}<br/>(максимальный из пары #{object.meta.rates})"
                else
-                 'WTF?'
+                 mode
                end
 
       buffer = buffer + ' от ' + I18n.l(er.created_at, format: :long)

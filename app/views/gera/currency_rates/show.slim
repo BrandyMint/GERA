@@ -1,6 +1,7 @@
 .container-fluid
   -# = link_to '&larr; в матрицу базовых курсов'.html_safe, currency_rates_path
-  = link_to t('.back_to_currency_rates').html_safe, currency_rates_path
+  -# = link_to t('.back_to_currency_rates').html_safe, currency_rates_path
   = link_to 'График изменений', 
     currency_rate_history_intervals_path(currency_rate_history_interval_filter: { cur_from:  currency_rate.cur_from, cur_to: currency_rate.cur_to })
-  = render currency_rate
+  .mt-2
+    = render currency_rate

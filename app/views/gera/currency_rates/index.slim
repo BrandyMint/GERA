@@ -3,7 +3,7 @@
   .mb-2
     span.mr-4= link_to 'График изменений', currency_rate_history_intervals_path
     span.mr-4= link_to 'Журнал', currency_rate_snapshots_path
-    = link_to 'Источники курсов', rate_sources_path
+    -# = link_to 'Источники курсов', rate_sources_path
 
 - if snapshot.present?
   = render 'currency_rates_snapshot', snapshot: snapshot
