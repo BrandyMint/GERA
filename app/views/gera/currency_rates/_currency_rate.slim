@@ -1,23 +1,31 @@
 - object = Gera::CurrencyRateDecorator.decorate currency_rate
 h3
   = t 'currency_rate', title: object.title
-hr
 .row
   .col-md-6
     = render 'attributes_table', object: object, columns: currency_rate_columns(currency_rate)
 
-    - if currency_rate.direction_rates.any?
-      h4= t 'gera.used_direction_rates', count:  currency_rate.direction_rates.count
-      - currency_rate.direction_rates.each do |direction_rate|
-        - object = Gera::DirectionRateDecorator.decorate (direction_rate)
-
-        - columns = %i(created_at rate_percent ps_comission rate_value )
-
-        = render 'attributes_table', object: object, columns: columns
-    - else
-      h4= t 'gera.not_used_in_direction_rates'
   .col-md-6
     .card.card-default
       .card-header= t 'calculation'
       .card-body
         .card-text= currency_rate_mode_detailed currency_rate
+
+.row
+  .col-md-12
+    - if currency_rate.direction_rates.any?
+      h4= t 'gera.used_direction_rates', count:  currency_rate.direction_rates.count
+      - columns = %i(created_at rate_percent ps_comission rate_value title direction)
+      table.table.table-narrow.table-condensed
+        thead
+          tr
+            - columns.each do |column|
+              th= Gera::DirectionRateDecorator.attribute_title column
+        tbody
+          - currency_rate.direction_rates.each do |direction_rate|
+            - object = Gera::DirectionRateDecorator.decorate direction_rate
+            tr
+              - columns.each do |column|
+                td=  object.send column
+    - else
+      h4= t 'gera.not_used_in_direction_rates'
