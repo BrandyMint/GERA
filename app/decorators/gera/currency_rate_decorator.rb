@@ -31,7 +31,7 @@ module Gera
                  mode
                end
 
-      buffer = buffer + ' от ' + I18n.l(er.created_at, format: :long)
+      buffer = buffer + ' от ' + I18n.l(er.created_at)
 
       h.link_to buffer.html_safe, h.external_rate_path(er)
     end
@@ -48,7 +48,7 @@ module Gera
     def created_at
       h.link_to h.currency_rate_path(object) do
         if object.created_at.present?
-          I18n.l object.created_at, format: :long
+          I18n.l object.created_at
         else
           'время создания не известно'
         end
@@ -60,7 +60,7 @@ module Gera
 
       er = Gera::ExternalRate.find object.source_external_rate_id
       h.link_to h.external_rate_path(er) do
-        "Источник EXMO\n#{I18n.l er.created_at, format: :long}\n#{er.buy_price}/#{er.sell_price}"
+        "Источник EXMO\n#{I18n.l er.created_at}\n#{er.buy_price}/#{er.sell_price}"
       end
     end
 

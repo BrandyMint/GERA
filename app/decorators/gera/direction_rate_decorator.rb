@@ -29,7 +29,7 @@ module Gera
 
     def created_at
       h.link_to h.direction_rate_path(object) do
-        I18n.l object.created_at, format: :long
+        I18n.l object.created_at
       end
     end
 
