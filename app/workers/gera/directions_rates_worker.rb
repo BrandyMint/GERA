@@ -30,6 +30,8 @@ module Gera
         end
       end
       logger.info 'finish'
+    rescue Gera::DirectionsRatesWorker => err
+      logger.error err
     end
 
     private
