@@ -3,13 +3,10 @@
 module Gera
   # Import rates from Bitfinex
   #
-  class BitfinexRatesWorker
-    include Sidekiq::Worker
+  class BitfinexRatesFetcher < BaseRatesFetcher
     include AutoLogger
 
     SUPPORTED_TICKERS_UPDATE_PERIOD = 1.day
-
-    prepend RatesWorker
 
     private
 

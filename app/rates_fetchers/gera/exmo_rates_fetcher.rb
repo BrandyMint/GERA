@@ -3,21 +3,14 @@
 module Gera
   # Import rates from EXMO
   #
-  class EXMORatesWorker
-    include Sidekiq::Worker
+  class EXMORatesFetcher < BaseRatesFetcher
     include AutoLogger
-
-    prepend RatesWorker
 
     URL1 = 'https://api.exmo.com/v1/ticker/'
     URL2 = 'https://api.exmo.me/v1/ticker/'
     URL = URL2
 
     private
-
-    def rate_source
-      @rate_source ||= RateSourceEXMO.get!
-    end
 
     # data contains
     # {"buy_price"=>"8734.99986728",

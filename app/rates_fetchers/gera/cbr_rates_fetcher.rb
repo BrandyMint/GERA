@@ -7,9 +7,9 @@ module Gera
   # Import rates from Russian Central Bank
   # http://www.cbr.ru/scripts/XML_daily.asp?date_req=08/04/2018
   #
-  class CBRRatesWorker
-    include Sidekiq::Worker
+  class CBRRatesFetcher
     include AutoLogger
+    attr_reader :source
 
     RAISE_ON_WRONG_DATE = Rails.env.production?
 
@@ -29,7 +29,8 @@ module Gera
 
     URL = 'http://www.cbr.ru/scripts/XML_daily.asp'
 
-    def perform
+    def perform(source)
+      @source = source
       ActiveRecord::Base.connection.clear_query_cache
       cbr.with_lock do
         days.each do |date|
@@ -138,7 +139,7 @@ module Gera
     end
 
     def cbr
-      @cbr ||= RateSourceCBR.get!
+      @source
     end
 
     def fetch_rates(date)

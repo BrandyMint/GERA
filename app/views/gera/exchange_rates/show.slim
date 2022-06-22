@@ -21,7 +21,7 @@
               = ion_icon 'share'
 
           div[data-currency-rates-update-url='currency_rates_operator_exchange_rates_url'; style='min-width: 300px']
-            = render 'currency_rates'
+            = render 'currency_rates' rescue Gera::CurrencyRatesRepository::NoActualSnapshot 
 
           /= link_to 'Базовые курсы подробнее &rarr;'.html_safe, operator_currency_rates_path
 

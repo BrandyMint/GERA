@@ -4,10 +4,7 @@ module Gera
     NoActualSnapshot = Class.new StandardError
 
     def snapshot
-      @snapshot ||= DirectionRateSnapshot.
-        where('created_at>=?', Settings.actual_rates.fetch(:direction_rates_seconds).seconds.ago).
-        order('created_at desc').
-        first ||
+      @snapshot ||= DirectionRateSnapshot.actual.first ||
         raise(NoActualSnapshot, "No actual DirectionRate snapshot")
     end
 

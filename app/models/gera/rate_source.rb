@@ -17,6 +17,7 @@ module Gera
     scope :enabled_for_cross_rates, -> { enabled }
 
     validates :key, presence: true, uniqueness: true
+    validates :fetcher_klass, presence: true, unless: :manual?
 
     before_create do
       self.priority ||= RateSource.maximum(:priority).to_i + 1
@@ -25,6 +26,7 @@ module Gera
     before_validation do
       self.title ||= self.class.name.underscore
       self.key ||= self.class.name.underscore
+      self.fetcher_klass = nil if fetcher_klass.blank?
     end
 
     delegate :supported_currencies, :available_pairs, to: :class
@@ -45,6 +47,10 @@ module Gera
 
     def self.get!
       where(type: name).take!
+    end
+
+    def manual?
+      false
     end
 
     def find_rate_by_currency_pair!(pair)
@@ -70,6 +76,15 @@ module Gera
     def is_currency_supported?(cur)
       cur = Money::Currency.find cur unless cur.is_a? Money::Currency
       supported_currencies.include? cur
+    end
+
+    def fetch!
+      fetcher_class.new.perform(self)
+    end
+
+    def fetcher_class
+      raise "No fetcher_klass for rate_source #{id} #{type}" if fetcher_klass.blank?
+      fetcher_klass.constantize
     end
 
     private

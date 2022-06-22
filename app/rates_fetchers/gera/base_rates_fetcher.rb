@@ -6,10 +6,13 @@ require 'rest-client'
 module Gera
   # Import rates from all sources
   #
-  module RatesWorker
+  class BaseRatesFetcher
     Error = Class.new StandardError
 
-    def perform
+    attr_reader :rate_source
+
+    def perform(rate_source)
+      @rate_source = rate_source
       # Alternative approach is `Model.uncached do`
       ActiveRecord::Base.connection.clear_query_cache
 

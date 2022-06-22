@@ -8,7 +8,7 @@ module Gera
 
     Error = Class.new StandardError
 
-    sidekiq_options queue: :direction_rates
+    sidekiq_options queue: :critical
     define_callbacks :perform
 
     # exchange_rate_id - ID of changes exchange_rate

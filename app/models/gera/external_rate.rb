@@ -8,6 +8,7 @@ module Gera
     belongs_to :source, class_name: 'RateSource'
     belongs_to :snapshot, class_name: 'ExternalRateSnapshot'
 
+    scope :enabled, -> { all }
     scope :ordered, -> { order :cur_from, :cur_to }
 
     before_validation do

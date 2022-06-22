@@ -2,5 +2,8 @@
 
 module Gera
   class RateSourceManual < RateSource
+    def manual?
+      true
+    end
   end
 end

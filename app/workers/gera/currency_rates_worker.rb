@@ -23,8 +23,6 @@ module Gera
 
       logger.info 'finish'
 
-      DirectionsRatesWorker.perform_async
-
       snapshot
     end
 
