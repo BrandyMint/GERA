@@ -1,7 +1,4 @@
-.float-right
-  = link_to 'Базовые курсы'.html_safe, currency_rates_path
-
-h1 Источники курсов
+h1.mb-4 Источники курсов
 - Gera::RateSource.ordered.each do |source|
   .mb-4
     = render 'rate_source', source: source

@@ -79,7 +79,15 @@ module Gera
     end
 
     def fetch!
-      fetcher_class.new.perform(self)
+      fetcher.perform(self)
+    end
+
+    def fetcher
+      fetcher_class.new
+    end
+
+    def update_supported_tickers!
+      fetcher.update_supported_tickers
     end
 
     def fetcher_class

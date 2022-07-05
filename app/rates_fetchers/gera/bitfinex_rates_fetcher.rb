@@ -8,14 +8,14 @@ module Gera
 
     SUPPORTED_TICKERS_UPDATE_PERIOD = 1.day
 
-    private
-
-    def update_supported_tickers
-      return unless rate_source.supported_tickers_updated_at.nil? || rate_source.supported_tickers_updated_at < SUPPORTED_TICKERS_UPDATE_PERIOD.ago
+    def update_supported_tickers(force=true)
+      return unless force && (rate_source.supported_tickers_updated_at.nil? || rate_source.supported_tickers_updated_at < SUPPORTED_TICKERS_UPDATE_PERIOD.ago)
       supported_tickers = BitfinexFetcher.new.fetch_tickers
       logger.info "Update supported_tickers: #{supported_tickers}"
       rate_source.update! supported_tickers: supported_tickers, supported_tickers_updated_at: Time.zone.now
     end
+
+    private
 
     def rate_source
       @rate_source ||= RateSourceBitfinex.get!
@@ -44,7 +44,7 @@ module Gera
     end
 
     def load_rates
-      update_supported_tickers
+      update_supported_tickers(false)
       logger.info "load_rates: [#{rate_source.tickers_to_load.join(',')}]"
       rate_source.
         tickers_to_load.

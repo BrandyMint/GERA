@@ -56,6 +56,7 @@ module Gera
     end
 
     def make_snapshot
+      logger.info "Make snapshot #{snapshot.created_at} #{snapshot.id}"
       save_snapshot_rate USD, RUB
       save_snapshot_rate KZT, RUB
       save_snapshot_rate EUR, RUB
