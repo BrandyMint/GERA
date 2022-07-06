@@ -8,8 +8,8 @@ module Gera
     include Virtus.value_object strict: true
 
     values do
-      attribute :cur_from, Money::Currency
-      attribute :cur_to,   Money::Currency
+      attribute :cur_from, ::Money::Currency
+      attribute :cur_to,   ::Money::Currency
     end
 
     # Варианты:
