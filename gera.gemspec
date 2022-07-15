@@ -38,6 +38,7 @@ Gem::Specification.new do |s|
     s.add_dependency 'noty_flash'
     s.add_dependency 'request_store'
     s.add_dependency 'request_store-sidekiq'
+    s.add_dependency 'env-tweaks'
 
     # s.add_development_dependency 'rails-erd'
     # s.add_development_dependency 'railroady'

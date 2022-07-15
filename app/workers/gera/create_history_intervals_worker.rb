@@ -9,6 +9,7 @@ module Gera
     MINIMAL_DATE = Time.parse('13-07-2018 18:00')
 
     def perform
+      return if ENV.true? 'SKIP_INTERVALS'
       save_direction_rate_history_intervals if DirectionRateHistoryInterval.table_exists?
       save_currency_rate_history_intervals if CurrencyRateHistoryInterval.table_exists?
     end

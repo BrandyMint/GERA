@@ -24,6 +24,7 @@ PATH
       business_time
       dapi-archivable
       draper (> 3.0.0)
+      env-tweaks
       kaminari
       money
       money-rails
@@ -139,6 +140,8 @@ GEM
       activemodel-serializers-xml (>= 1.0)
       activesupport (>= 5.0)
       request_store (>= 1.0)
+    env-tweaks (1.0.1)
+      activesupport (>= 3.0, < 7.0)
     equalizer (0.0.11)
     erubi (1.10.0)
     factory_bot (6.1.0)
