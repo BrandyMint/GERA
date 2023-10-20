@@ -40,7 +40,7 @@ module Gera
       def initialize_data!
         super
 
-        data = self.class.table[@id]
+        data = self.class.table[@id] || raise("No #{@id} currency found in table")
 
         @is_crypto = data[:is_crypto]
         @local_id = data[:local_id]
