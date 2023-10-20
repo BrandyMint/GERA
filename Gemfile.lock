@@ -6,12 +6,6 @@ GIT
       actionpack
       addressable
 
-GIT
-  remote: https://github.com/BrandyMint/noty_flash.git
-  revision: 9f2d93b8192c52122b691f8a14953c35613dfdc1
-  specs:
-    noty_flash (0.1.2)
-
 PATH
   remote: .
   specs:
@@ -28,7 +22,6 @@ PATH
       kaminari
       money
       money-rails
-      noty_flash
       percentable
       psych
       rails (> 5.2.0)
@@ -389,7 +382,6 @@ DEPENDENCIES
   guard-bundler
   guard-rspec
   guard-rubocop
-  noty_flash!
   pg
   pry
   pry-byebug

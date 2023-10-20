@@ -9,7 +9,7 @@ gemspec
 gem 'rails', '~> 5.2.2.1'
 gem 'dapi-archivable', '~> 0.1.2', require: 'archivable'
 gem 'active_link_to', github: 'BrandyMint/active_link_to'
-gem 'noty_flash', github: 'BrandyMint/noty_flash'
+# gem 'noty_flash', github: 'BrandyMint/noty_flash'
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or

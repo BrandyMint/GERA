@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
     s.add_dependency 'draper', '> 3.0.0'
     s.add_dependency 'active_link_to'
     s.add_dependency 'breadcrumbs_on_rails'
-    s.add_dependency 'noty_flash'
+    # s.add_dependency 'noty_flash'
     s.add_dependency 'request_store'
     s.add_dependency 'request_store-sidekiq'
     s.add_dependency 'env-tweaks'
